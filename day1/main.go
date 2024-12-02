@@ -14,6 +14,7 @@ func main() {
 	rightList := []int{}
 
 	totalDistance := 0
+	similarityScore := 0
 
 	file, err := os.Open("input.txt")
 	if err != nil {
@@ -52,10 +53,20 @@ func main() {
     		totalDistance += leftList[i] - rightList[i]
     	}
     }
+
+    for i, xl := range leftList {
+    	counter := 0
+    	for _, xr := range rightList {
+    		if xl == xr {
+    			counter++
+    		}
+    	}
+    	similarityScore += leftList[i] * counter
+    }
  
     if err := scanner.Err(); err != nil {
         fmt.Println(err)
     }
-
-    fmt.Println(totalDistance)
+    fmt.Println("Total Distance: ", totalDistance)
+    fmt.Println("Similarity Score: ", similarityScore)
 }
